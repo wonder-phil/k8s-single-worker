@@ -8,13 +8,11 @@ https://kubernetes.io/docs/tutorials/kubernetes-basics/
 > Testing a basic echo server with a load balancer
 
 curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-amd64
+
 sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
 
 minikube start  # Will take some time while giving lots of output
 
-minikube kubectl -- get po -A
-
-docker ps
 
 > add to .bashrc file:
 
@@ -22,11 +20,17 @@ alias k="minikube kubectl --"
 
 source ~/.bashrc
 
+
+k get po -A
+
+docker ps
+
 >
 > Set up a load balancer for an echo server
 >
 
 k create deployment balanced --image=kicbase/echo-server:1.0
+
 k expose deployment balanced --type=LoadBalancer --port=8080
 
 minikube tunnel          # set up Exposed IP
@@ -48,6 +52,7 @@ minikube stop
 k scale deployment balanced --replicas=0  # stop deployment
 
 k get deploy
+
 k get svc
 
 k delete deployment balanced
