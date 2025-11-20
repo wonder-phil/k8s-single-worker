@@ -14,11 +14,11 @@ spec:
     spec:
       containers:
         - name: mypythonengine
-          image: myworker   # << replace with your container image
+          image: myworker   # create image that k8s (minikube) has access to
           imagePullPolicy: Never
           ports:
-            - containerPort: 5000     # << optional
-          command: ["/bin/sh", "-c", "python3 app.py"]  # optional custom command
+            - containerPort: 5000     # Flask
+          command: ["/bin/sh", "-c", "python3 app.py"]  # running the worker
 
 ---
 apiVersion: v1
