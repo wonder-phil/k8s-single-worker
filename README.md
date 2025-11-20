@@ -34,6 +34,7 @@ k create deployment balanced --image=kicbase/echo-server:1.0
 k expose deployment balanced --type=LoadBalancer --port=8080
 
 minikube tunnel          # set up Exposed IP
+
 k get services balanced  # find Exposed IP
 
 > you will get an IP address such as,
@@ -47,7 +48,7 @@ curl -H "Content-Type: application/json" -d "{\"heads\":6 }" -X POST http://10.1
 
 ## remove echo service test
 
-minikube stop
+
 
 k scale deployment balanced --replicas=0  # stop deployment
 
@@ -56,7 +57,10 @@ k get deploy
 k get svc
 
 k delete deployment balanced
+
 k delete service balanced
+
+minikube stop
 
 ## Set up worker service
 
