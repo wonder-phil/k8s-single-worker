@@ -84,3 +84,10 @@ curl http://localhost:8080/                # Test endpoint
 
 curl -H "Content-Type: application/json" -d '{"heads": 8}' -X POST http://localhost:8080/compute
 
+> Increase the replicas and run the following in the shell
+
+
+EXTERNAL_IP=$(k get svc worker-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+
+for i in {1..20}; do   curl -s -H 'Connection: close' "http://$EXTERNAL_IP:8080/"; done
+
