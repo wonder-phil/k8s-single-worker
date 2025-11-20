@@ -28,7 +28,7 @@ metadata:
 spec:
   selector:
     app: worker
-  type: ClusterIP                  # internal only (default)
+  type: LoadBalancer                  # internal only (default)
   ports:
     - port: 8080                   # service port
       targetPort: 5000             # containerPort
