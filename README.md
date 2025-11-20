@@ -19,6 +19,7 @@ docker ps
 > add to .bashrc file:
 
 alias k="minikube kubectl --"
+
 source ~/.bashrc
 
 >
@@ -31,11 +32,44 @@ k expose deployment balanced --type=LoadBalancer --port=8080
 minikube tunnel          # set up Exposed IP
 k get services balanced  # find Exposed IP
 
-
+> you will get an IP address such as,
 http://10.106.25.147
 
 
 > Test it
 > 
 curl -H "Content-Type: application/json" -d "{\"heads\":6 }" -X POST http://10.106.25.147:8080
+
+
+## remove echo service test
+
+minikube stop
+
+k scale deployment balanced --replicas=0  # stop deployment
+
+k get deploy
+k get svc
+
+k delete deployment balanced
+k delete service balanced
+
+## Set up worker service
+
+> Go to the Docker subdirectory
+
+minikube image build -t myworker .
+
+Alternatively:
+>> eval $(minikube docker-env)
+>> docker build -t myworker .  
+
+> Go back to the origional directory
+
+k apply -f app.yaml
+
+k port-forward svc/worker-service 8080:8080
+
+curl -H "Content-Type: application/json" \
+     -d '{"heads": 8}' \
+     -X POST http://localhost:8080/compute
 
