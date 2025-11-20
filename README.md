@@ -76,9 +76,11 @@ Alternatively:
 
 k apply -f app.yaml
 
+minikube tunnel          # set up Exposed IP
+
 k port-forward svc/worker-service 8080:8080
 
-curl -H "Content-Type: application/json" \
-     -d '{"heads": 8}' \
-     -X POST http://localhost:8080/compute
+curl http://localhost:8080/                # Test endpoint
+
+curl -H "Content-Type: application/json" -d '{"heads": 8}' -X POST http://localhost:8080/compute
 
