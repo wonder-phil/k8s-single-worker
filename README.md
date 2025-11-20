@@ -16,13 +16,13 @@ minikube kubectl -- get po -A
 
 docker ps
 
-# add to .bashrc file:
+> add to .bashrc file:
 
 alias k="minikube kubectl --"
 source ~/.bashrc
 
 >
-> Set up an load balancer for an echo server
+> Set up a load balancer for an echo server
 >
 
 k create deployment balanced --image=kicbase/echo-server:1.0
